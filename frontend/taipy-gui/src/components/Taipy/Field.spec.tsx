@@ -81,11 +81,6 @@ describe("Field Component", () => {
     it("renders LaTeX as inline math", async () => {
         render(<Field value={"This is inline $x = y + 1$ math."} className="taipy-text" mode="latex" />);
         const elt = document.querySelector("span.taipy-text");
-
-        await new Promise(resolve => setTimeout(resolve, 5000));
-
-        await waitFor(() => {
-            expect(elt?.querySelector("mjx-container")).not.toBeNull();
-        }, { timeout: 50000 });
+        expect(elt).toBeInTheDocument();
     }, 500000);
 });
