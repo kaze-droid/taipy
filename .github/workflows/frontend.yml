@@ -69,7 +69,7 @@ jobs:
         run: npm run build --if-present
 
       - if: steps.cache-gui-fe-build.outputs.cache-hit != 'true'
-        run: npm test
+        run: npm test -- --no-headless
 
       - name: Code coverage
         if: matrix.os == 'ubuntu-latest' && github.event_name == 'pull_request' && steps.cache-gui-fe-build.outputs.cache-hit != 'true'
