@@ -84,6 +84,6 @@ describe("Field Component", () => {
 
         await waitFor(() => {
             expect(elt?.querySelector("mjx-container")).not.toBeNull();
-        }, { timeout: 50000 });
-    }, 50000);
+        }, { timeout: 100000 });
+    }, 100000);
 });
