@@ -69,7 +69,7 @@ import {
     useModule,
     Store,
     FileSelector,
-    createUnBroadcastAction,
+    getComponentClassName,
 } from "taipy-gui";
 
 import { Cycle as CycleIcon, Scenario as ScenarioIcon } from "./icons";
@@ -663,25 +663,16 @@ const DataNodeViewer = (props: DataNodeViewerProps) => {
 
     // Refresh on broadcast
     useEffect(() => {
-        if (coreChanged?.name) {
-            const toRemove = [...coreChanged.stack]
-                .map((bc) => {
-                    const ids = (bc as Record<string, unknown>).datanode;
-                    if ((typeof ids === "string" && ids === dnId) || (Array.isArray(ids) && ids.includes(dnId))) {
-                        props.updateVarName &&
-                            dispatch(createRequestUpdateAction(id, module, [props.updateVarName], true));
-                        return bc;
-                    }
-                    return undefined;
-                })
-                .filter((v) => v);
-            toRemove.length && dispatch(createUnBroadcastAction(coreChanged.name, ...toRemove));
+        const ids = coreChanged?.datanode;
+        if ((typeof ids === "string" && ids === dnId) || (Array.isArray(ids) && ids.includes(dnId))) {
+            props.updateVarName &&
+                dispatch(createRequestUpdateAction(id, module, [props.updateVarName], true));
         }
     }, [coreChanged, props.updateVarName, id, module, dispatch, dnId]);
 
     return (
         <>
-            <Box sx={dnMainBoxSx} id={id} onClick={onFocus} className={className}>
+            <Box sx={dnMainBoxSx} id={id} onClick={onFocus} className={`${className} ${getComponentClassName(props.children)}`}>
                 <Accordion defaultExpanded={expanded} expanded={userExpanded} onChange={onExpand} disabled={!valid}>
                     <AccordionSummary
                         expandIcon={expandable ? <ArrowForwardIosSharp sx={AccordionIconSx} /> : null}

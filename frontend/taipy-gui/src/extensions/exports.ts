@@ -20,6 +20,7 @@ import Table from "../components/Taipy/Table";
 import TableFilter from "../components/Taipy/TableFilter";
 import { FilterDesc } from "../components/Taipy/tableUtils";
 import TableSort, { SortDesc } from "../components/Taipy/TableSort";
+import {getComponentClassName} from "../components/Taipy/TaipyStyle";
 import Metric from "../components/Taipy/Metric";
 import { useLovListMemo, LoV, LoVElt } from "../components/Taipy/lovUtils";
 import { LovItem } from "../utils/lov";
@@ -40,8 +41,6 @@ import {
     createSendUpdateAction,
     createRequestDataUpdateAction,
     createRequestUpdateAction,
-    createUnBroadcastAction,
-    BroadcastDesc
 } from "../context/taipyReducers";
 
 export {
@@ -55,11 +54,11 @@ export {
     TableSort,
     Metric,
     TaipyContext as Context,
-    createUnBroadcastAction,
     createRequestDataUpdateAction,
     createRequestUpdateAction,
     createSendActionNameAction,
     createSendUpdateAction,
+    getComponentClassName,
     getUpdateVar,
     useClassNames,
     useDispatchRequestUpdateOnFirstRender,
@@ -71,7 +70,6 @@ export {
 };
 
 export type {
-    BroadcastDesc,
     ColumnDesc,
     FilterDesc,
     LoV,

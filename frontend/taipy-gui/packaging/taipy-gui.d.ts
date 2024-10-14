@@ -325,25 +325,6 @@ export declare const createRequestUpdateAction: (
 ) => Action;
 
 /**
- * Broadcast stack definition.
- */
-export interface BroadcastDesc {
-    /** Name of the broadcast. */
-    name: string;
-    /** Broadcast stack */
-    stack: Array<unknown>;
-}
-
-/**
- * Create an *un broadcast* `Action` that will be used to update local state.
- *
- * This action will remove a value from a broadcasted stacked variable identified by name.
- * @param name - The name of the variable identifying the broadcast.
- * @param values - The values to remove.
- * @returns The action fed to the reducer.
- */
-export declare const createUnBroadcastAction: (name: string, ...values: Array<unknown>) => Action;
-/**
  * A column description as received by the backend.
  */
 export interface ColumnDesc {
@@ -465,3 +446,12 @@ export declare const useDispatch: () => React.Dispatch<Action>;
  * @returns The page module.
  */
 export declare const useModule: () => string | undefined;
+
+/**
+ * A function that retrieves the dynamic className associated
+ * to an instance of component through the style property
+ *
+ * @param children - The react children of the component
+ * @returns The associated className.
+ */
+export declare const getComponentClassName: (children: React.ReactNode) => string;

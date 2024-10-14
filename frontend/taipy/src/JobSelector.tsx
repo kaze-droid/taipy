@@ -55,7 +55,7 @@ import {
     createRequestUpdateAction,
     createSendActionNameAction,
     createSendUpdateAction,
-    createUnBroadcastAction,
+    getComponentClassName,
     getUpdateVar,
     useDispatch,
     useDispatchRequestUpdateOnFirstRender,
@@ -779,25 +779,16 @@ const JobSelector = (props: JobSelectorProps) => {
     }, [props.value, props.defaultValue]);
 
     useEffect(() => {
-        if (coreChanged?.name) {
-            const toRemove = [...coreChanged.stack]
-                .map((bc) => {
-                    if ((bc as Record<string, unknown>).jobs) {
-                        const updateVar = getUpdateVar(props.updateVars, "jobs");
-                        updateVar && dispatch(createRequestUpdateAction(id, module, [updateVar], true));
-                        return bc;
-                    }
-                    return undefined;
-                })
-                .filter((v) => v);
-            toRemove.length && dispatch(createUnBroadcastAction(coreChanged.name, ...toRemove));
+        if (coreChanged?.jobs) {
+            const updateVar = getUpdateVar(props.updateVars, "jobs");
+            updateVar && dispatch(createRequestUpdateAction(id, module, [updateVar], true));
         }
     }, [coreChanged, props.updateVars, module, dispatch, id]);
 
     const tableHeightSx = useMemo(() => ({ maxHeight: props.height || "50vh" }), [props.height]);
 
     return (
-        <Box className={className}>
+        <Box className={`${className} ${getComponentClassName(props.children)}`}>
             {showDetails && props.details ? (
                 <Dialog open={true} onClose={closeDetails} scroll="paper" fullWidth>
                     <DialogTitle>{props.details[1]}</DialogTitle>
